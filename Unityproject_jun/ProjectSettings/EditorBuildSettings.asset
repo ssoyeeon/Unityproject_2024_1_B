@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MainScene.unity
     guid: b99c24021a7429a42b785b5c5c231155
+  - enabled: 1
+    path: Assets/Scenes/SuBak/SuBak.unity
+    guid: 9083f1df8b9a7684d99646e5fd423a0c
   m_configObjects: {}

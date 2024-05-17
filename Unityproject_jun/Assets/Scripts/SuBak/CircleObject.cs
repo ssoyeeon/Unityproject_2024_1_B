@@ -5,14 +5,20 @@ using UnityEngine;
 
 public class CircleObject : MonoBehaviour
 {
-    public bool isDrag;               //드래그 중인지 판단
-    public bool isUsed;              //사용 완료 판단하는 (bool)
-    Rigidbody2D rigidbody2D;        //2D 강체를 불러온다.
+    public bool isDrag;                      //드래그 중인지 판단
+    public bool isUsed;                      //사용 완료 판단하는 (bool)
+    Rigidbody2D rigidbody2D;                //2D 강체를 불러온다.
 
-    void Start()
+    public int index;                //과일 번호를 만든다.
+
+    void Awake()                                         //시작하기 전 사용
     {
         isUsed = false;                                  //사용 완료가 되지 않음(처음 사용)
         rigidbody2D = GetComponent<Rigidbody2D>();      //강체를 가져온다.
+        rigidbody2D.simulated = false;                  //생성될때는 시뮬레이팅 되지 않는다.
+    }
+    void Start()
+    {
 
     }
 
@@ -58,6 +64,39 @@ public class CircleObject : MonoBehaviour
         if(Temp != null )                                               //해당 오브젝트가 존재하면
         {
             Temp.gameObject.GetComponent<GameManager>().GenObject();    //GenObject 함수를 호출 (GetComponent 통해 클래스 접근)
+        }
+    }
+
+    public void Used()
+    {
+        isDrag=false;
+        isUsed=true;
+        rigidbody2D.simulated = true;
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)   //2D 충돌이 일어날 경우
+    {
+        if (index >= 7)         //준비된 과일이 최대 7개
+            return;
+            
+        if(collision.gameObject.tag == "Fruit")     //충돌 물체의 태그가 Fruit 일 경우
+        {
+            CircleObject temp = collision.gameObject.GetComponent<CircleObject>();  //임시로  Class temp를 선언하고 충돌체의 Class(circleObject)를 받아온다.
+
+            if (temp.index == index)
+            {
+                if (gameObject.GetInstanceID() > collision.gameObject.GetInstanceID())  //유니티에서 지원하는 고유의 ID를 받아와서 ID가 큰쪽에서 다음 과일 생성
+                {
+
+                    GameObject Temp = GameObject.FindWithTag("GameManager");
+                    if (Temp != null)
+                    {
+                        Temp.gameObject.GetComponent<GameManager>().MergeObject(index, gameObject.transform.position);
+                    }
+                    Destroy(temp.gameObject);
+                    Destroy(gameObject);
+                }
+            }
         }
     }
 }

@@ -7,6 +7,8 @@ TagManager:
   - pipe
   - item
   - Target
+  - GameManager
+  - Fruit
   layers:
   - Default
   - TransparentFX

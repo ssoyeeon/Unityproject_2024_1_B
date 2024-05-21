@@ -11,15 +11,21 @@ public class CircleObject : MonoBehaviour
 
     public int index;                //과일 번호를 만든다.
 
+    public float EndTime = 0.0f;
+    public SpriteRenderer spr;
+
+    public GameManager gameManager;
+
     void Awake()                                         //시작하기 전 사용
     {
         isUsed = false;                                  //사용 완료가 되지 않음(처음 사용)
         rigidbody2D = GetComponent<Rigidbody2D>();      //강체를 가져온다.
         rigidbody2D.simulated = false;                  //생성될때는 시뮬레이팅 되지 않는다.
+        spr = GetComponent<SpriteRenderer>();
     }
     void Start()
     {
-
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
@@ -72,6 +78,34 @@ public class CircleObject : MonoBehaviour
         isDrag=false;
         isUsed=true;
         rigidbody2D.simulated = true;
+    }
+
+    public void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.tag == "EndLine")          //Trigger 충돌 중일 때
+        {
+            EndTime += Time.deltaTime;
+
+            if(EndTime > 1)
+            {
+                spr.color = new Color(0.9f, 0.2f, 0.2f);
+            }
+
+            if(EndTime > 3)
+            {
+                gameManager.EndGame();
+            }
+        }
+        
+    }
+
+    public void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.tag == "EndLine")          //충돌 물체가 빠져나갔을 때
+        {
+            EndTime = 0.0f;
+            spr.color = Color.white;
+        }
     }
 
     public void OnCollisionEnter2D(Collision2D collision)   //2D 충돌이 일어날 경우

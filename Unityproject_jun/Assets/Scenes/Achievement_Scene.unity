@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -590,16 +590,16 @@ MonoBehaviour:
   achievements:
   - name: "\uB3C4\uC57D"
     description: "\uD0A4\uBCF4\uB4DC \uC704 \uD654\uC0B4\uD45C\uB97C \uB20C\uB800\uB2E4"
-    isUnlocked: 1
+    isUnlocked: 0
     currentProgress: 0
     goal: 5
   - name: "\uAC00\uC724\uC5B8\uB2C8\uCABD\uC73C\uB85C \uAC00\uAE30"
     description: "\uD0A4\uBCF4\uB4DC \uC624\uB978\uCABD \uD654\uC0B4\uD45C\uB97C
       \uB20C\uB800\uB2E4"
-    isUnlocked: 1
+    isUnlocked: 0
     currentProgress: 0
     goal: 5
-  AchievementNameTexts:
+  AchievementTexts:
   - {fileID: 48728926}
   - {fileID: 409054614}
   - {fileID: 240329242}

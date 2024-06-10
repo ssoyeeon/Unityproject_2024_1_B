@@ -8,7 +8,7 @@ public class AchievementManager : MonoBehaviour
     public static AchievementManager instance;
     public List<Achievement> achievements;
 
-    public Text[] AchievementNameTexts = new Text[4];
+    public Text[] AchievementTexts = new Text[4];
 
     private void Awake()
     {
@@ -25,13 +25,13 @@ public class AchievementManager : MonoBehaviour
 
     public void UpdateAchievementUI()
     {
-        AchievementNameTexts[0].text = achievements[0].name;
-        AchievementNameTexts[1].text = achievements[0].description;
-        AchievementNameTexts[2].text = $"{achievements[0].currentProgress} / {achievements[0].goal}";
-        AchievementNameTexts[3].text = achievements[0].isUnlocked ? "달성" : "미달성";
+        AchievementTexts[0].text = achievements[0].name;
+        AchievementTexts[1].text = achievements[0].description;
+        AchievementTexts[2].text = $"{achievements[0].currentProgress} / {achievements[0].goal}";
+        AchievementTexts[3].text = achievements[0].isUnlocked ? "달성" : "미달성";
     }
 
-    public void AddProgress(string achievementName, int amount)
+    public void AddProgressInList(string achievementName, int amount)
     {
         Achievement achievement = achievements.Find( a => a.name == achievementName );
         if( achievement != null)
@@ -47,9 +47,9 @@ public class AchievementManager : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.UpArrow))
         {
-            AddProgress("도약" , 1);      //AddProgressInList 로 넣어야하는데요..?
+            AddProgressInList("도약" , 1);      //AddProgressInList 로 넣어야하는데요..?
             UpdateAchievementUI();
         }
     }
